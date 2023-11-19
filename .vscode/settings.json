@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "ostream": "cpp",
+        "iostream": "cpp",
+        "bitset": "cpp",
+        "*.tcc": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "iomanip": "cpp",
+        "typeinfo": "cpp",
+        "vector": "cpp",
+        "sstream": "cpp",
+        "regex": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
