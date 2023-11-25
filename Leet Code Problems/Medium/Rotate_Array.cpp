@@ -1,6 +1,25 @@
 class Solution {
 public:
-  // First Approach Time Complexity is O(nlog(n))
+  // First Approach Time Complexity is O(n)
+  //                 Space complexity is O(1)
+    void leftRotate(int arr[], int n, int d) {
+        // code here
+       int i = 0 , j = d-1;
+       while(i<j){
+           swap(arr[i++],arr[j--]);
+       }
+       i = d , j = n-1;
+       while(i<j){
+            swap(arr[i++],arr[j--]);
+
+       }
+            i = 0, j = n-1;
+       while(i<j){
+            swap(arr[i++],arr[j--]);
+
+       }
+    }
+  // Second Approach Time Complexity is O(nlog(n))
   //                 Space complexity is O(1)
     void rotate(vector<int>& nums, int k) {
         int n =nums.size() ;
@@ -10,7 +29,7 @@ public:
    reverse(nums.begin(),nums.end());
     }
 
-  // Second Approach Time Complexity is O(n)
+  // third Approach Time Complexity is O(n)
   //                 Space complexity is O(n)
      void rotate1(vector<int>& nums, int k) {
         int n =nums.size() ;
