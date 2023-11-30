@@ -216,7 +216,7 @@ bool searchRecursive(Node* head,int val){
 //----------- Iterative Approach ----------------//
 // Time Complexity: O(N), Traversing over the linked list of size N. 
 // Auxiliary Space: O(1)
-Node* Reverse(Node* &head){
+Node* ReverseSSL(Node* &head){
   Node* prev =NULL ;  // null
   Node *curr= head ;  // 1
   Node *nxt;      //  1 2 3 4 5
@@ -226,17 +226,18 @@ Node* Reverse(Node* &head){
    curr->next=prev;   // 1->prev  // 2->prev(1) //3->prev(2) //4->prev(3) //5->prev(4) // null
    prev=curr;        // 1 = prev //2 = prev //3 = prev //4 = prev //5 = prev
    curr=nxt;        // 2 = curr //3 = curr //4 = curr //5 = curr //null
+    LinkedListTraversal(prev);
   }
 return prev;  //  this become new Pointer poitning the last node and become 
 }
 //----------- Recursive Approach ----------------//
 //        Time Complexity: O(N), Visiting over every node one time 
 //        Auxiliary Space: O(N), Function call stack space
-Node * RecursiveApp(Node* &head){
+Node * ReverseRecursiveAppSLL(Node* &head){
     if(head==NULL || head->next==NULL){
         return head;
     }
-    Node * newNode = RecursiveApp(head->next);
+    Node * newNode = ReverseRecursiveAppSLL(head->next);
     head->next->next=head;
     head->next=NULL;
     return newNode;
@@ -302,6 +303,7 @@ void page(){
 	cout<<"\t\t\t\t  9). Traversal of the Linked list"<<endl;
 	cout<<"\t\t\t\t  10). Searching of the Linked list"<<endl;
 	cout<<"\t\t\t\t  11). Count no of node or length of the Linked list"<<endl;
+	cout<<"\t\t\t\t  12). Reversing the Singly Linked list"<<endl;
 	cout<<"\t\t\t\t______________________________________________"<<endl;
 }
 
@@ -372,8 +374,13 @@ int main(){
             cout<<"From Recursive Approach :"<<LengthSLLRecursive(head)<<endl;
             cout<<"From Optimized Recursive Approach :"<<LengthSLLOptimizedRecursive(head)<<endl;
             break;
-    default:
-    cout<<"Invalid choice Enter again:"<<endl;
+        case 12:
+           head = ReverseSSL(head);
+           cout<<"Reversing the Linked list using the Iterative Approach:"<<endl;
+           LinkedListTraversal(head);
+           break;
+        default:
+            cout<<"Invalid choice Enter again:"<<endl;
             break;
         }
     }
@@ -446,15 +453,13 @@ DeleteAtHead(head);
 
 DeleteAtTail(head);
         LinkedListTraversal(head);
-        cout<<"Reversing through Iterative Approach"<<endl;
-        Node* newNoderevers = Reverse(head);
+
+         cout<<"Reversing through Iterative Approach"<<endl;
+        Node* newNoderevers = ReverseSSL(head);
         LinkedListTraversal(newNoderevers);
         cout<<"Reversing through Recursive Approach"<<endl;
-        Node* newNodeReverseRecu = RecursiveApp(newNoderevers);
+        Node* newNodeReverseRecu = ReverseRecursiveAppSLL(head);
           LinkedListTraversal(newNodeReverseRecu);
+       
     */
-
-
-
-
 }

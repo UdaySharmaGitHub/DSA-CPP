@@ -8,6 +8,9 @@ public:
 // optimized
         int strStr(string haystack, string needle) {
         int n = needle.size();
+        if(haystack.size()<n){
+            return -1;
+        }
         string str;
         for(int i=0; i<haystack.size(); i++){
             if(needle[0]==haystack[i]){
