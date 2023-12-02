@@ -20,6 +20,9 @@ class Solution{
 public:	
 	// Function returns the second
 	// largest elements
+// Most Optimized method
+// Time Complexity is 2*O(n)
+// Space Complexity is O(1)
 	int print2largest(int arr[], int n) {
 	    // code here
     int first = INT_MIN, second = -1; 
@@ -34,6 +37,14 @@ public:
         }
     }
     return second;
+	}
+// low Optimized method
+// Time Complexity is O(nlogn)
+// Space Complexity is O(1)
+	int lessOptimizedprint2largest(int arr[], int n) {
+	    // code here
+    sort(arr,arr+n);  // sort using the STL Library
+    return arr[n-1];
 	}
 };
 
