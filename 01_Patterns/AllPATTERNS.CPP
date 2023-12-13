@@ -26,7 +26,7 @@ int main(){
 */
                 // Printing a hollow rectangle
 /*
-    XXXXX
+  XXXXX
 	X   X       // x=row=6
 	X   X       // y=colume=5
 	X   X
