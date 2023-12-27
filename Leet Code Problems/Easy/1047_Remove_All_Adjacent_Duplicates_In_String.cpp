@@ -1,25 +1,46 @@
 #include<bits/stdc++.h>
-using namespace std;
 class Solution {
 public:
     string removeDuplicates(string s) {
-         int n = s.size();
-         int i = 0;
-         while(i<n-1){
-             if(s[i]==s[i+1]){
-                 s.erase(i,2);
-                 i-=2;
-             }
-                 i++;
-         }
-         cout<<i<<endl;
-         
-         return s;
+    stack<char> ch;
+    int i =0;
+    while(i<s.size()){
+        if(!ch.empty()){
+            if(ch.top()==s[i]){ch.pop();}
+            else{ch.push(s[i]);}
+        }
+        else{ch.push(s[i]);}
+        i++;
+    }
+    string res = "";
+   while(!ch.empty()){
+       res+=ch.top();
+       ch.pop();
+   }
+   reverse(res.begin(),res.end());
+    return res;
     }
 };
-int main(){
-    string s ;
-    getline(cin,s);
-    Solution obj;
-    cout<<obj.removeDuplicates(s)<<endl;
-}
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        string ans="";
+        int i=0;
+        while(i<s.length()){
+            if( ans.length() > 0 ){
+                if( ans[ans.length() - 1] == s[i]){
+                    ans.pop_back();
+                }
+                else{
+                    ans.push_back(s[i]);
+                }
+            }
+            else{
+                ans.push_back(s[i]);
+            }
+            i++;
+            
+        }
+        return ans;
+    }
+};
