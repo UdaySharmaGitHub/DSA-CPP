@@ -3,11 +3,8 @@ using namespace std;
 
 int main() {
 	// your code goes here
-	int n =10 ;
-	int ans = 0 ;
-	for(int i=1;i<=n;i++){
-     ans = ans^i;
+	int a= 2;
+	int ld = a%2;
+	cout<<(ld==0) <<endl;
 }
-cout<<ans<<endl;
-	return 0;
-}
+
