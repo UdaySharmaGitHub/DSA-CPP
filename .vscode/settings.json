@@ -21,7 +21,8 @@
         "list": "cpp",
         "initializer_list": "cpp",
         "valarray": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "numeric": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
