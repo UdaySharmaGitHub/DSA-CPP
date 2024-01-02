@@ -22,7 +22,10 @@
         "initializer_list": "cpp",
         "valarray": "cpp",
         "utility": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "chrono": "cpp",
+        "random": "cpp",
+        "limits": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

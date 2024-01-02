@@ -25,6 +25,7 @@ int gcd(int a,int b){
 int main(){
     int a ,b;
     cin>>a>>b;
-    cout<<gcd(a,b)<<endl;
+    cout << " The GCD of " << a << " & " << b << " is: " <<gcd(a,b) << endl;
+    cout << " The GCD of " << a << " & " << b << " is: " <<gcd(a,b)/(a*b) << endl;
 return 0;
 }
