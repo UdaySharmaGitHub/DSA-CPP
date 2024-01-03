@@ -20,9 +20,9 @@ int main(){
 	printf("%u\n",ptr);  //%u=unsigned
 	printf("%u\n",&ptr);   // %u=unsigned
 
-int a1=3;
+int a1=7;
 int*b=&a1;
-cout<<"the value of address a is : "<<&a1<<endl;             // here is "b" is the pointers .  
+cout<<"the value of address a is : "<<&a1<<endl;           // here is "b" is the pointers .  
 cout<<"the value of the b is :" <<b<<endl;                 // b ==&a 
     // * ----> (value at) derefrence operator .           
 cout<<"the value of address of b is :"<<*b<<endl;	 //  *(pointers) Gives the value at .
