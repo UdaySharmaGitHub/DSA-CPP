@@ -78,7 +78,7 @@ void InsertAtTail(Node* &head,Node* &tail,int x){
     }
 }
 //-------------Insertion At Index--------------------------//
-void InsertAtIndex(Node* &head,Node*tail,int x,int index){
+void InsertAtIndex(Node* &head,Node* &tail,int x,int index){
     if(index==0){
         InsertAtHead(head,tail,x);
            return;
@@ -112,8 +112,11 @@ void DeleteAtHead(Node* &head){
     Node* temp = head;
     head=head->next;
     head->prev=NULL;
+    delete temp;
  }
 }
+
+//------- Main Function -----------------//
 int main(){
 Node* head = NULL;
 Node* tail =NULL;
@@ -135,6 +138,9 @@ InsertAtTail(head,tail,2);
 DLLTraversal(head,tail);
 InsertAtIndex(head,tail,3,10);
 DLLTraversal(head,tail);
+DeleteAtHead(head);
+DLLTraversal(head,tail);
+
 
 cout<<"The length of the Doubly Linked List:"<<LengthDLL(head)<<endl;
 
