@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-
+// If the length of the string is ‘n’, then the total sub-strings will be n * (n + 1) /2.
 // Time complexity: O( n^3 )
 // Auxiliary Space: O(1)
 void printSubstrings1(string str)

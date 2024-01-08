@@ -10,6 +10,14 @@ class Node{
           this->prev=NULL;
           this->next=NULL;
     }
+        ~Node() {
+        int val = this -> data;
+        if(this->next != NULL) {
+            delete next;
+            this->next = NULL;
+        }
+        cout << "memory free for node with data "<< val << endl;
+    }
 };
 //------------------Traversing the Doubly Linked List-------------------------//
 void DLLTraversal(Node* head,Node* tail){
@@ -102,7 +110,7 @@ void InsertAtIndex(Node* &head,Node* &tail,int x,int index){
 }
 
 //-----------------------------Deletion in Doubly Linked List------------------------------//
-//----------------Delete head node----------------//
+//----------------Delete at Head----------------//
 void DeleteAtHead(Node* &head){
  if(head==NULL){
         cout<<"Nothing To Delete Doubly Linked List is Empty"<<endl;
@@ -111,11 +119,52 @@ void DeleteAtHead(Node* &head){
  else{
     Node* temp = head;
     head=head->next;
-    head->prev=NULL;
+    temp->next=nullptr;
     delete temp;
  }
 }
-
+//----------------Delete at Tail----------------//
+void DeleteAtTail(Node* &head,Node* &tail){
+ if(head==NULL){
+        cout<<"Nothing To Delete Doubly Linked List is Empty"<<endl;
+        return ;
+ }
+ else{
+    Node* temp = head;
+    Node* prevtemp=nullptr;
+    while(temp->next!=nullptr){
+        prevtemp=temp;
+        temp=temp->next;
+    }
+    prevtemp->next=nullptr;
+    tail=prevtemp;
+    delete temp;
+ }
+}
+//----------------Delete at Position----------------//
+void DeleteAtPosition(Node* &head,Node* &tail,int position){
+ if(position==1){
+    Node* temp = head;
+    head=head->next;
+    temp->next=nullptr;
+    delete temp;
+ }
+ else{
+    Node * curr = head , *prevtemp=nullptr; 
+    int i=1;
+    while(i<position){
+        prevtemp=curr;
+        curr=curr->next;
+        i++;
+    }
+    prevtemp->next=curr->next;
+    curr->next=nullptr;
+    if(prevtemp->next==nullptr){
+        tail=prevtemp;
+    }
+    delete curr;
+ }
+}
 //------- Main Function -----------------//
 int main(){
 Node* head = NULL;
@@ -129,18 +178,30 @@ InsertAtHead(head,tail,14);
 InsertAtHead(head,tail,15);
 InsertAtHead(head,tail,16);
 DLLTraversal(head,tail);
+
 InsertAtTail(head,tail,9);
 InsertAtTail(head,tail,1);
 DLLTraversal(head,tail);
+
 InsertAtIndex(head,tail,5,3);
 DLLTraversal(head,tail);
 InsertAtTail(head,tail,2);
 DLLTraversal(head,tail);
 InsertAtIndex(head,tail,3,10);
 DLLTraversal(head,tail);
+
+DeleteAtPosition(head,tail,1);
+DLLTraversal(head,tail);
+DeleteAtPosition(head,tail,2);
+DLLTraversal(head,tail);
+DeleteAtPosition(head,tail,9);
+DLLTraversal(head,tail);
+
 DeleteAtHead(head);
 DLLTraversal(head,tail);
 
+DeleteAtTail(head,tail);
+DLLTraversal(head,tail);
 
 cout<<"The length of the Doubly Linked List:"<<LengthDLL(head)<<endl;
 
