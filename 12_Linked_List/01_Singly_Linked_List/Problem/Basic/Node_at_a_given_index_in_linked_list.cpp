@@ -97,6 +97,18 @@ int main()
 // } Driver Code Ends
 // Should return data of node at given index. The function may
 //  assume that there are at least index+1 nodes in linked list
+/*
+=> Method-2 : - without using Recursion
+Algorithm: 
+1. Initialize count = 0
+2. Loop through the link list
+     a. if the count is equal to the passed index then return the current
+         node
+     b. Increment count
+     c. change current to point to next of the current.
+Time Complexity: O(n)
+Auxiliary Space: O(1) space created for variables
+*/
 int GetNth(struct node* head, int index){
   // Code here
   int i = 0;
@@ -106,7 +118,18 @@ int GetNth(struct node* head, int index){
   }
   return head->data;
 }
-// using Recursion
+/*
+=> Method-2 :- using Recursion
+Algorithm:-
+getnth(node,n)
+1. Initialize count = 0
+2. if count==n
+     return node->data
+3. else
+    return getnth(node->next,n-1)
+Time Complexity : O(n) 
+Auxiliary Space: O(n) due to recursive calls.
+*/
 int GetNth(struct Node* head, int n) 
 { 
     // if length of the list is less 
