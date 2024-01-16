@@ -24,3 +24,21 @@ Node * RecursiveApp(Node* &head){
     head->next=NULL;
     return newNode;
 }
+//----------- Recursive Approach2 ----------------//
+void reverse(Node* &head,Node* curr,Node* prev){
+  if(curr==nullptr){head=prev ; return ;}
+  Node* next = curr->next;
+  reverse(head,next,curr);
+  curr->next=prev;
+
+}
+Node * RecursiveApp2(Node* &head){
+  // base case
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    Node* curr = head;
+    Node* prev = nullptr;
+    reverse(head,curr,prev);
+    return head;
+}

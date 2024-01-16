@@ -78,14 +78,16 @@ class Solution{
         }
         return count;
     }
-// Method 1: 
-// Traverse the whole linked list and count the no. of nodes. Now traverse the list again till count/2 and return the node at count/2. 
-// Below is the implementation of the above approach:
-// First Approach to Get the length of the Linked List 
-// and Find the Middle using Size_of_LinkedList/2 then traverse the linked List less than the index
-// And return the head->data or node (as Required);
-// Time Complexity: O(n) where n is no of nodes in linked list
-// Auxiliary Space: O(1)
+/*
+Method 1: 
+Traverse the whole linked list and count the no. of nodes. Now traverse the list again till count/2 and return the node at count/2. 
+Below is the implementation of the above approach:
+First Approach to Get the length of the Linked List 
+and Find the Middle using Size_of_LinkedList/2 then traverse the linked List less than the index
+And return the head->data or node (as Required);
+Time Complexity: O(n) where n is no of nodes in linked list
+Auxiliary Space: O(1)
+*/
     int getMiddle(Node *head)
     {
         // Your code here
@@ -99,14 +101,17 @@ class Solution{
         return temp->data;
     }
 
-// Second Approach Easy And Brute Force Way:
-// The Approach:
-// Here in this approach, we use O(n) extra space 
-// for vector to store the linked list values and we simply return middle value of vector.
-// to craete a vector array to store the data part of the Linked List
-// get the middle element using the mid =vector_name.size()/2 and return the vector_name[mid].
-// Time Complexity: O(n), for traversing.
-// Auxiliary Space: O(n), for Vector.
+/*
+Method-2
+Second Approach Easy And Brute Force Way:
+The Approach:
+Here in this approach, we use O(n) extra space 
+for vector to store the linked list values and we simply return middle value of vector.
+to craete a vector array to store the data part of the Linked List
+get the middle element using the mid =vector_name.size()/2 and return the vector_name[mid].
+Time Complexity: O(n), for traversing.
+Auxiliary Space: O(n), for Vector.
+*/
        int getMiddle2(Node *head)
     {
         // Your code here
@@ -117,6 +122,30 @@ class Solution{
     }
     return v[v.size()/2];
     }
+/*
+Method-3
+by using two pointer (slow and fast pointer)
+In this first pointer moves one step at time
+In this second pointer moves two step at time
+we fast become null its means the slow pointer is in the middle of LinkedList
+*/
+Node *findMiddle(Node * head){
+    if(head->next==nullptr || head==nullptr){
+        return head;
+    }
+    if(head->next->next==nullptr){
+        return head->next;
+    }
+    Node* slow = head;
+    Node* fast = head->next;
+    while(fast!=nullptr){
+  fast = fast->next;
+  if(fast!=nullptr){fast=fast->next;}
+  slow=slow->next;
+    }
+    return slow;
+}
+
 };
 
 
