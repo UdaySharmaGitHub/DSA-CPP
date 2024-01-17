@@ -114,8 +114,10 @@ void InsertAtTail2(Node* &tail,int n){
 
 
 
-//---------------------------------Deletion in Singly Linked List-----------------------------//
+//---------------------------------Deletion in Singly Linked List----------------------//
 //--------------Deletion in head--------------//
+// Time Complexity O(1)
+// Space Complexity O(1)
 void DeleteAtHead(Node* &head){
     if(head==NULL){
             cout<<"Nothing to delete Linked List is Empty:"<<endl;
@@ -127,6 +129,8 @@ return ;
     delete temp;
 }
 //--------------Deletion At index--------------//
+// Time Complexity O(n)
+// Space Complexity O(1)
 void DeleteAtIndex(Node* &head,int position){
     if(position==0){
    DeleteAtHead(head);
@@ -146,6 +150,8 @@ void DeleteAtIndex(Node* &head,int position){
     }
 }
 //--------------Deletion At Value--------------//
+// Time Complexity O(n)
+// Space Complexity O(1)
 void DeleteAtValue(Node* &head,int Value){
     if(head==NULL){
             cout<<"Nothing to delete Linked List is Empty:"<<endl;
@@ -162,6 +168,8 @@ void DeleteAtValue(Node* &head,int Value){
         delete todelete;
 }
 //--------------Deletion At Tail/Last/end-------------//
+// Time Complexity O(n)
+// Space Complexity O(1)
 void DeleteAtTail(Node* &head){
     Node* temp = head;
      if(head==NULL){
@@ -241,6 +249,24 @@ Node * ReverseRecursiveAppSLL(Node* &head){
     head->next->next=head;
     head->next=NULL;
     return newNode;
+}
+//----------- Recursive Approach2 ----------------//
+void reverse(Node* &head,Node* curr,Node* prev){
+  if(curr==nullptr){head=prev ; return ;}
+  Node* next = curr->next;
+  reverse(head,next,curr);
+  curr->next=prev;
+
+}
+Node * RecursiveApp2(Node* &head){
+  // base case
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    Node* curr = head;
+    Node* prev = nullptr;
+    reverse(head,curr,prev);
+    return head;
 }
 //----------- Using Stack ----------------//
 // void ReverseUsingStack(Node* &head){

@@ -108,34 +108,30 @@ bool isCircularList(Node* head) {
     return false;
 
 }
-
+// Detecting the whether the linked list is Circulary linked or note
 bool detectLoop(Node* head) {
-
     if(head == NULL)
         return false;
 
     map<Node*, bool> visited;
-
     Node* temp = head;
-
     while(temp !=NULL) {
-
         //cycle is present
         if(visited[temp] == true) {
             return true;
         }
-
         visited[temp] = true;
         temp = temp -> next;
-
     }
     return false;
-
 }
 
 int main(){
   Node* tail=nullptr;
     print(tail); 
+    if(isCircularList(tail)){
+    cout<<"LinkedList is Circular in nature:"<<endl;
+}
     deleteNode(tail,2);
   insertNode(tail, 5, 3);
     print(tail); 
@@ -147,10 +143,16 @@ insertNode(tail, 5, 6);
     print(tail); 
 deleteNode(tail,3);
 print(tail);
+if(isCircularList(tail)){
+    cout<<"LinkedList is Circular in nature:"<<endl;
+}
 deleteNode(tail,4);
 deleteNode(tail,5);
 deleteNode(tail,6);
 print(tail);
+if(isCircularList(tail)){
+    cout<<"LinkedList is Circular in nature:"<<endl;
+}
 
 
 }
