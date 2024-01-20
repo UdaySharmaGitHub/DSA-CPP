@@ -78,6 +78,8 @@ bool detectCycleHashing(Node* head){
         // node for the second time).
         if (s.find(head) != s.end())
             return true;
+         // return temp->data; // we can also returned the first element where cycl start
+
         // If we are seeing the node for
         // the first time, insert it in hash
         s.insert(head);
@@ -85,6 +87,25 @@ bool detectCycleHashing(Node* head){
         head = head->next;
     }
     return false;
+}
+// Detect loop in a linked list using Hashing (using map):
+// Time complexity: O(N), Only one traversal of the loop is needed.
+// Auxiliary Space: O(N), N is the space required to store the value in the hashmap.
+bool detectCycleByMap(Node* head){
+    if(head==nullptr){
+        return 0;
+    }
+    map<Node*,bool> visited;
+    Node * temp = head;
+    while(temp!=nullptr){
+        if(visited[temp]==1){
+            return 1;
+            // return temp->data; // we can also returned the first element where cycl start
+        }
+        visited[temp] =1;
+        temp = temp->next;
+    }
+    return 0;
 }
 //Detect loop in a linked list by Modification In Node Structure:
 // Time complexity: O(N), Only one traversal of the loop is needed.
@@ -114,6 +135,7 @@ bool detectCycle(Node* &head){
     }
     return 0;
 }
+
 int main(){
     Node* head=nullptr;
     InsertAtTail(head,1);
@@ -127,26 +149,33 @@ int main(){
     makeCycle(head,4);
     // LinkedListTraversal(head);
 // a)	Detect loop in a linked list using Hashing:
-cout<<"a) Detect loop in a linked list using Hashing:"<<endl;
+cout<<"a) Detect loop in a linked list using Hashing(set):"<<endl;
     if(detectCycleHashing(head)){
          cout<<"LinkedList is Circular"<<endl;
     }
     else{
         cout<<"LinkedList is not Circular"<<endl;
     }
-cout<<"b) Detect loop in a linked list using Hare tortise algorithm"<<endl;
+cout<<"b) Detect loop in a linked list using Hashing(map):"<<endl;
+    if(detectCycleByMap(head)){
+         cout<<"LinkedList is Circular"<<endl;
+    }
+    else{
+        cout<<"LinkedList is not Circular"<<endl;
+    }
+cout<<"c) Detect loop in a linked list using Hare tortise algorithm"<<endl;
     if(detectCycle(head)){
          cout<<"LinkedList is Circular"<<endl;
     }
     else{
         cout<<"LinkedList is not Circular"<<endl;
     }
-cout<<"c) Detect loop in a linked list by Modification In Node Structure:"<<endl;
+cout<<"d) Detect loop in a linked list by Modification In Node Structure:"<<endl;
     if(detectCycleByModifyingTheLinkedList(head)){
          cout<<"LinkedList is Circular"<<endl;
     }
     else{
         cout<<"LinkedList is not Circular"<<endl;
     }
-
+return 0 ;
 }

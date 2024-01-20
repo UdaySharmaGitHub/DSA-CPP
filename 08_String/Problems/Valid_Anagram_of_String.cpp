@@ -64,3 +64,24 @@ public:
         return true;
     }
 };
+class Solution
+{
+    public:
+    //Function is to check whether two strings are anagram of each other or not.
+    bool isAnagram(string a, string b){
+        
+        // Your code here
+        vector<int> a1(26,0);
+        vector<int> a2(26,0);
+        for(char &ch:a){a1[ch-'a']++;}
+        for(char &ch:b){a2[ch-'a']++;}
+        for(int i=0;i<26;i++){
+            if(a1[i]!=a2[i]){
+                return 0;
+            }
+        }
+        return 1;
+        
+    }
+
+};
