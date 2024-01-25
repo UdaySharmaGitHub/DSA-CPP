@@ -26,7 +26,8 @@
         "chrono": "cpp",
         "random": "cpp",
         "limits": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "set": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

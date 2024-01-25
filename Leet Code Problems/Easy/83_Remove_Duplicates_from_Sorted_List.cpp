@@ -34,53 +34,96 @@ The list is guaranteed to be sorted in ascending order.
  */
 // Most Optimized Approach
 class Solution {
-public:
-    ListNode* deleteDuplicates(ListNode* head) {
-        ListNode* curr = head;
-        while(curr!=nullptr && curr->next!=nullptr){
-            if(curr->val==curr->next->val){
-                 curr->next = curr->next->next;
-            }
-            else{
-                curr=curr->next;
-            }
-        }
-        return head;
-    }
-};
+//Function to remove duplicates from sorted linked list.
 // Optimized Approach
-class Solution {
-public:
-    ListNode* deleteDuplicates(ListNode* head) {
-        if(!head || !head->next) return head;
-        ListNode* temp = head;
-        while(head->next) {
-            if(head->val == head->next->val) {
-                head->next = head->next->next;
-            } else {
-                head = head->next;
-            }
-        }
-        return temp;
+// Time Complexity O(n)
+// Space Complexity O(1)
+ListNode *removeDuplicates(ListNode *head)
+{
+ // your code goes here
+ if(head==nullptr){
+     return nullptr;
+ }
+ ListNode* curr = head;
+ while(curr!=nullptr){
+     if(curr->next!=nullptr && curr->data == curr->next->data){
+         ListNode* pointToNextNodeOfDelete = curr->next->next;
+         ListNode* nodeToDelete = curr->next;
+         delete(nodeToDelete);
+         curr->next = pointToNextNodeOfDelete;
+     }
+     else{
+          curr=curr->next;
+     }
+     }
+     return head;
+ }
+ // Most Optimized Approach
+// Time Complexity O(n)
+// Space Complexity O(1)
+ ListNode *removeDuplicates2(ListNode *head)
+{
+  ListNode *curr = head;
+  while (curr != nullptr && curr->next != nullptr)
+  {
+    if (curr->val == curr->next->val)
+    {
+      curr->next = curr->next->next;
     }
-};
-// Least Optimized Approach
-class Solution {
-public:
-    ListNode* deleteDuplicates(ListNode* head) {
-        ListNode* curr = head;
-        while(curr!=nullptr && curr->next!=nullptr){
-            if(curr->val==curr->next->val){
-                ListNode* nodeNextToTheDeletedNode = curr->next->next;
-                ListNode* nodeToDelete = curr->next;
-                delete (nodeToDelete);
-                curr->next = nodeNextToTheDeletedNode;
-            }
-            else{
-                curr=curr->next;
-            }
-        }
-        return head;
+    else
+    {
+      curr = curr->next;
     }
+  }
+  return head;
+}
+// Optimized Approach // set
+// Time Complexity O(n)
+// Space Complexity O(n)
+ListNode *removeDuplicates3(ListNode *head)
+{
+ // your code goes here
+ if(head==nullptr){
+     return nullptr;
+ }
+ ListNode* curr = head;
+ ListNode* prev = nullptr;
+ set<int> set;
+ while(curr!=nullptr){
+     if(set.count(curr->data)){
+         prev->next = curr->next;
+     }
+     else{
+         set.insert(curr->data);
+         prev = curr;
+     }
+     curr=curr->next;
+ }
+ return head;
+ }
+ // Optimized Approach // unoredered_Set
+// Time Complexity O(n)
+// Space Complexity O(n)
+ ListNode *removeDuplicates(ListNode *head)
+{
+ // your code goes here
+ if(head==nullptr){
+     return nullptr;
+ }
+ ListNode* curr = head;
+ ListNode* prev = nullptr;
+ unordered_set<int> set;
+ while(curr!=nullptr){
+     if(set.find(curr->data)!=set.end()){
+         prev->next = curr->next;
+     }
+     else{
+         set.insert(curr->data);
+         prev = curr;
+     }
+     curr=curr->next;
+ }
+ return head;
+ }
 };
 

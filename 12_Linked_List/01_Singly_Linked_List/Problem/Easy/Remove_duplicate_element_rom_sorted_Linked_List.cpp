@@ -88,6 +88,9 @@ struct Node {
   }
 };*/
 //Function to remove duplicates from sorted linked list.
+// Optimized Approach
+// Time Complexity O(n)
+// Space Complexity O(1)
 Node *removeDuplicates(Node *head)
 {
  // your code goes here
@@ -107,4 +110,71 @@ Node *removeDuplicates(Node *head)
      }
      }
      return head;
+ }
+ // Most Optimized Approach
+// Time Complexity O(n)
+// Space Complexity O(1)
+ Node *removeDuplicates2(Node *head)
+{
+  Node *curr = head;
+  while (curr != nullptr && curr->next != nullptr)
+  {
+    if (curr->val == curr->next->val)
+    {
+      curr->next = curr->next->next;
+    }
+    else
+    {
+      curr = curr->next;
+    }
+  }
+  return head;
+}
+// Optimized Approach // set
+// Time Complexity O(n)
+// Space Complexity O(n)
+Node *removeDuplicates3(Node *head)
+{
+ // your code goes here
+ if(head==nullptr){
+     return nullptr;
+ }
+ Node* curr = head;
+ Node* prev = nullptr;
+ set<int> set;
+ while(curr!=nullptr){
+     if(set.count(curr->data)){
+         prev->next = curr->next;
+     }
+     else{
+         set.insert(curr->data);
+         prev = curr;
+     }
+     curr=curr->next;
+ }
+ return head;
+ }
+ // Optimized Approach // unoredered_Set
+// Time Complexity O(n)
+// Space Complexity O(n)
+ Node *removeDuplicates(Node *head)
+{
+ // your code goes here
+ if(head==nullptr){
+     return nullptr;
+ }
+ Node* curr = head;
+ Node* prev = nullptr;
+ unordered_set<int> set;
+ while(curr!=nullptr){
+     if(set.find(curr->data)!=set.end()){
+         prev->next = curr->next;
+     }
+     else{
+         set.insert(curr->data);
+         prev = curr;
+     }
+     curr=curr->next;
+ }
+ return head;
  }
