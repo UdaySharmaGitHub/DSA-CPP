@@ -40,6 +40,58 @@ Follow up: Can you solve it using O(1) (i.e. constant) memory?
  * };
  */
 //---------------------------Approach -1 ----------------------------------------//
+//Most Optimized Approach
+// Time Complexity O(n)
+// Space Complexity O(1)
+Node* floydDetectLoop(Node* head) {
+    if(head == NULL)
+        return NULL;
+
+    Node* slow = head;
+    Node* fast = head;
+    while(slow != NULL && fast !=NULL) {
+        fast = fast -> next;
+        if(fast != NULL) {
+            fast = fast -> next;
+        }
+        slow = slow -> next;
+        if(slow == fast) {
+            return slow;
+        }
+    }
+    return NULL;
+}
+// With the Help of FloydCycle Detection Algorithm
+Node* getStartingNode(Node* head) {
+    if(head == NULL) 
+        return NULL;
+
+    Node* intersection = floydDetectLoop(head);
+    
+    if(intersection == NULL)
+        return NULL;
+    
+    Node* slow = head;
+
+    while(slow != intersection) {
+        slow = slow -> next;
+        intersection = intersection -> next;
+    }  
+
+    return slow;
+}
+Node *firstNode(Node *head)
+{
+    //    Write your code here.
+        if(head==nullptr){
+            return nullptr;
+        }
+  return getStartingNode(head);
+}
+// ---------------------------Approach -1 ----------------------------------------//
+// Optimized Approach
+// Time Complexity O(n^2)
+// Space Complexity O(1)
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
@@ -64,6 +116,9 @@ public:
     }
 };
 //---------------------------Approach -1 ----------------------------------------//
+// Optimized Approach
+// Time Complexity O(n)
+// Space Complexity O(1)
 class Solution {
 public:
 ListNode* cyclePresent(ListNode* head){

@@ -24,13 +24,50 @@ int main() {
 	// int a ;
 	// int a ;
 
-	char c= 1;
-	c=~c;
-	printf("%d",c);
+	// char c= 1;
+	// c=~c;
+	// printf("%d",c);
 
-	int a = 2;
-	a =~a;
-	cout<<a<<endl;
+	// int a = 2;
+	// a =~a;
+	// cout<<a<<endl;
+	
+	// int a =20;
+	// cout<<~20<<endl;
+
+	// int a =20;
+	// a=a<<8;
+	// printf("%d",a);
+
+	// printf("%d",-1>10);
+	// int a=10;
+	// unsigned int b = -1; // -1 become 65335
+	// printf("%d",b);
+	// printf("%d",b>a);
+
+	// printf("%d",7!=6);
+	// int a ;
+	// a = (a^a) +5;
+	// printf("%d",a);
+
+	// cout<< (5^3) <<endl;
+	// cout<< (9>6>5) <<endl;
+
+    // int  a =0 ,b=0 , c=0 ,x;
+	// x = a++ && b++ && c++;
+	// printf("%d %d %d %d",a,b,c,x);
+    
+	// a =0 ,b=0 , c=0;
+	// x = ++a && b++ && c++;
+	// printf("%d %d %d %d",a,b,c,x);
+
+	// a =0 ,b=0 , c=0;
+	// x = ++a || b++ || c++;
+	// printf("%d %d %d %d",a,b,c,x);
+
+	// printf("Uday Sharma\r Hello");
+	// printf("Uday Sharma\b Hello");
+
 	return 0;
 }
 
