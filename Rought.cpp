@@ -67,6 +67,8 @@ int main() {
 
 	// printf("Uday Sharma\r Hello");
 	// printf("Uday Sharma\b Hello");
+cout<< 5%4 <<endl;
+cout<< 4%5 <<endl;
 
 	return 0;
 }
