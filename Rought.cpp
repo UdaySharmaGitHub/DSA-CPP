@@ -67,9 +67,23 @@ int main() {
 
 	// printf("Uday Sharma\r Hello");
 	// printf("Uday Sharma\b Hello");
-cout<< 5%4 <<endl;
-cout<< 4%5 <<endl;
+// cout<< 5%4 <<endl;
+// cout<< 4%5 <<endl;
 
+
+// printf("%.16f %.2f" , 0.2 ,0.2); // 0.2000000000000000 0.20
+char name[4];
+Name:
+printf("Enter the name: ");
+gets(name);
+if(strlen(name)==0){
+	printf("Name is Mandatry");
+	goto Name;
+}
+cout<<strlen(name)<<endl;
+for(int i=0;i<strlen(name);i++){
+	printf("%c",name[i]);
+}
 	return 0;
 }
 
