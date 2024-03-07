@@ -86,4 +86,19 @@ int main() {
 // 	printf("%c",name[i]);
 // }
 
+char *p;
+int i;
+for( i=0;i<3;i++){
+	printf("Enter %d name :",i+1);
+	scanf("%s",p+i);
+}
+for( i=0;i<3;i++){
+	printf("First Character of your name is : %c",*(p+i));
+}
+for(i=0; i<3;i++){
+	printf("\n your name = %s",(p+i));
+}
+
+return 0;
+
 }
