@@ -37,27 +37,97 @@ node *buildTree(node* root){
 void levelOrderTraversal(node* root){
 	queue<node*> q;
 	q.push(root);
+	q.push(nullptr);
 	while(!q.empty()){
 		node * temp = q.front();
-		cout<<temp->data<<" ";
 		q.pop();
+		if(temp==nullptr){
+			// Queue Level is Already Traverse
+			cout<<endl;
+			if(!q.empty()){
+				// Queue has some chid left
+				q.push(nullptr);
+			}
+		}
+		else{
+		cout<<temp->data<<" ";
 
-		if(temp->left){
+			if(temp->left){
 			q.push(temp->left);
 		}
 		if(temp->right){
 			q.push(temp->right);
 		}
+		}
 	}
 }
+//----------------------------InOrder Traversal---------------------------------------//
+void inOrder(node* root){
+	if(root==nullptr){
+		return ;
+	}
+	inOrder(root->left);
+	cout<<root->data<<" ";
+	inOrder(root->right);
+}
+//----------------------------PreOrder Traversal---------------------------------------//
+void preOrder(node* root){
+	if(root==nullptr){
+		return ;
+	}
+	cout<<root->data<<" ";
+	preOrder(root->left);
+	preOrder(root->right);
+}
+//----------------------------PostOrder Traversal---------------------------------------//
+void postOrder(node* root){
+	if(root==nullptr){
+		return ;
+	}
+	postOrder(root->left);
+	postOrder(root->right);
+	cout<<root->data<<" ";
+}
+//----------------------------Build Tree From Level Order---------------------------------------//
+node* buildFromLevelOrder(node* &root){
+	queue<node*> q;
+	int data;
+	cout<<"Enter the data for the root : "<<endl;
+	cin>>data;
+	root = new node(data);
+	q.push(root);
 
+	while(!q.empty()){
+		node* temp  = q.front();
+		q.pop();
 
+		cout<<"enter the left node of "<<temp->data<<endl;
+		cin>>data;
+		if(data!=-1){
+			temp->left = new node(data);
+			q.push(temp->left);
+		}
+
+		cout<<"enter the right node of "<<temp->data<<endl;
+		cin>>data;
+		if(data!=-1){
+			temp->right = new node(data);
+			q.push(temp->right);
+		}
+	}
+}
 int main(){
 	node * root = nullptr;
-	root = buildTree(root);
-	//1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1  
-	//level order
-	cout<<"Printing the Level Order Traversal :"<<endl;
+	// root = buildTree(root);
+	// //1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1  
+	// //level order
+	// cout<<"Printing the Level Order Traversal :"<<endl;
+	// levelOrderTraversal(root);
+	// inOrder(root);
+	// preOrder(root);
+	// postOrder(root);
+
+	buildFromLevelOrder(root);
 	levelOrderTraversal(root);
 
 	return 0;
