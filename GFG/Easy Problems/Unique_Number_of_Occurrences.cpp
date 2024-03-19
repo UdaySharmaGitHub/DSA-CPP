@@ -1,21 +1,38 @@
 /*
-1207. Unique Number of Occurrences
-Given an array of integers arr, return true if the number of occurrences 
-of each value in the array is unique or false otherwise.
+Unique Number of Occurrences
+Given an array arr of N integers, the task is to check whether the frequency of the elements in the array is unique or not. Or in other words, there are no two distinct numbers in array with equal frequency. If all the frequency is unique then return true, else return false.
+
 Example 1:
-Input: arr = [1,2,2,1,1,3]
-Output: true
-Explanation: The value 1 has 3 occurrences, 2 has 2 and 3 has 1. No two values 
-have the same number of occurrences.
+
+Input:
+N = 5
+arr = [1, 1, 2, 5, 5]
+Output:
+false
+Explanation:
+The array contains 2 (1’s), 1 (2’s) and 2 (5’s), since the number of frequency of 1 and 5 are the same i.e. 2 times. Therefore, this array does not satisfy the condition.
 Example 2:
-Input: arr = [1,2]
-Output: false
-Example 3:
-Input: arr = [-3,0,1,-3,1,1,1,-3,10,0]
-Output: true
+
+Input:
+N = 10
+arr = [2, 2, 5, 10, 1, 2, 10, 5, 10, 2]
+Output:
+true
+Explanation:
+Number of 1’s -> 1
+Number of 2’s -> 4
+Number of 5’s -> 2
+Number of 10’s -> 3.
+Since, the number of occurrences of elements present in the array is unique. Therefore, this array satisfy the condition.
+Your task:
+You don't need to read input or print anything. Your task is to complete the function isFrequencyUnique() which take integer N and array arr of size N as arguments, and returns a boolean.
+
+Expected Time Complexity: O(N)
+Expected Auxiliary Space: O(N)
+
 Constraints:
-1 <= arr.length <= 1000
--1000 <= arr[i] <= 1000
+1 <= N <=105
+-109 <= arr[i] <= 109
 */
 /*
 => Efficient Approach: The idea is to use Hashing. Below are the steps:
@@ -76,37 +93,6 @@ class Solution
 /*
 Brute Forces
 */
-    // Time Complexity O(n*log(n))
-    // Space Complexity O(1)
-class Solution {
-public:
-    bool uniqueOccurrences(vector<int>& arr) {
-        sort(arr.begin(), arr.end());
-        vector<int> v;
-
-        for (int i = 0; i < arr.size(); i++) {
-            int cnt = 1;
-
-            // Count occurrences of the current element
-            while (i + 1 < arr.size() && arr[i] == arr[i + 1]) {
-                cnt++;
-                i++;
-            }
-
-            v.push_back(cnt);
-        }
-
-        sort(v.begin(), v.end());
-
-        for (int i = 1; i < v.size(); i++) {
-            if (v[i] == v[i - 1]) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-}; 
 class Solution
 {
     public:
