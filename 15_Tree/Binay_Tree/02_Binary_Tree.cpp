@@ -116,6 +116,30 @@ node* buildFromLevelOrder(node* &root){
 		}
 	}
 }
+//----------------------------------------------Count Leaves Node ---------------------------------------------------//
+ void countLeaf(node* root , int &count){
+     if(root==nullptr){return ;}
+     
+     if(root->left == nullptr && root->right==nullptr) count++;
+     countLeaf(root->left,count);
+     countLeaf(root->right,count);
+ }
+int countLeaves(node* root)
+{
+  // Your code here
+  int count =0;
+  countLeaf(root,count);
+  return count ;
+}
+//----------------------------------Heigth of Binary Tree---------------------------------------------//
+int heightBinaryTree(node* root){
+	if(root==nullptr){return 0;}
+
+	int heightOfLeftSubTree = heightBinaryTree(root->left);
+	int heightOfrightSubTree = heightBinaryTree(root->right);
+	int ans = max(heightOfLeftSubTree,heightOfrightSubTree) + 1;
+	return ans;
+}
 int main(){
 	node * root = nullptr;
 	// root = buildTree(root);
@@ -129,6 +153,8 @@ int main(){
 
 	buildFromLevelOrder(root);
 	levelOrderTraversal(root);
+	cout<<countLeaves(root)<<endl;
+	cout<<"The Height of Binary Tree : "<< heightBinaryTree(root)<<endl;
 
 	return 0;
 }
