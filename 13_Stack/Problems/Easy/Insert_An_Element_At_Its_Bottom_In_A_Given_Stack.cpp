@@ -1,5 +1,6 @@
 /*
- Insert An Element At Its Bottom In A Given Stack
+Insert An Element At Its Bottom In A Given Stack
+(POTD)Insert an Element at the Bottom of a Stack
 Sample input 1 :
 2
 3 8
@@ -37,23 +38,22 @@ Test Case 2:
 We are given 'MY_STACK = [1,9]’ and 'X’ = 5.
 So finally, 'MY_STACK' will become [5, 1, 9]. 
 */
-#include <bits/stdc++.h> 
-void solve(stack<int>& myStack,int x){
-    if(myStack.empty()){
-        myStack.push(x);
-        return;
+class Solution{
+private:
+void solve(stack<int>&st,int x){
+     if(st.empty()){
+            st.push(x);
+            return ;
+        }
+        
+        int temp = st.top();
+        st.pop();
+        solve(st,x);
+        st.push(temp);
+}
+public:
+    stack<int> insertAtBottom(stack<int> st,int x){
+       solve(st,x);
+       return st;
     }
-    int num = myStack.top();
-    myStack.pop();
-
-    solve(myStack,x);
-    myStack.push(num);
-}
-stack<int> pushAtBottom(stack<int>& myStack, int x) 
-{
-    // Write your code here.
-     solve(myStack,x);
-     return myStack;
-
-
-}
+};
