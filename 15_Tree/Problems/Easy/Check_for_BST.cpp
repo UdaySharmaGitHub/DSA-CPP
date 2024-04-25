@@ -3,14 +3,10 @@ Check for BST
 Given the root of a binary tree. Check whether it is a BST or not.
 Note: We are considering that BSTs can not contain duplicate Nodes.
 A BST is defined as follows:
-
 The left subtree of a node contains only nodes with keys less than the node's key.
 The right subtree of a node contains only nodes with keys greater than the node's key.
 Both the left and right subtrees must also be binary search trees.
- 
-
 Example 1:
-
 Input:
    2
  /    \
@@ -52,6 +48,7 @@ Constraints:
 0 <= Number of edges <= 100000
 */
 /*
+    APPROACH - 1
     - If the current node is null then return true
     - If the value of the left child of the node is greater than or equal to the current node then return false
     - If the value of the right child of the node is less than or equal to the current node then return false
@@ -113,4 +110,89 @@ class Solution
     return 1;
         
     }
+};
+/*
+        =>Check BST using specified range of minimum and maximum values of nodes:
+The isBSTUtil() function is a recursive helper function that checks whether a subtree 
+(rooted at a given node) is a BST within the specified range of minimum (min) and 
+maximum (max) values. If any node violates this range, the function returns false; 
+otherwise, it continues checking the left and right subtrees.
+    - Time Complexity: O(N), Where N is the number of nodes in the tree
+    - Auxiliary Space: O(1), if Function Call Stack size is not considered, otherwise 
+                             O(H) where H is the height of the tree
+*/
+class Solution{
+public:
+int isBSTUtil(Node* node, int min, int max);
+ 
+/* Returns true if the given
+tree is a binary search tree
+(efficient version). */
+int isBST(Node* node)
+{
+    return (isBSTUtil(Node, INT_MIN, INT_MAX));
+}
+ 
+/* Returns true if the given
+tree is a BST and its values
+are >= min and <= max. */
+int isBSTUtil(Node* node, int min, int max)
+{
+    /* an empty tree is BST */
+    if (node == NULL)
+        return 1;
+ 
+    /* false if this node violates
+    the min/max constraint */
+    if (node->data < min || node->data > max)
+        return 0;
+ 
+    /* otherwise check the subtrees recursively,
+    tightening the min or max constraint */
+    return isBSTUtil(node->left, min, node->data - 1)
+       
+           && // Allow only distinct values
+           isBSTUtil(node->right, node->data + 1,
+                     max); // Allow only distinct values
+}
+};
+/*
+                INRODER TRAVERSAL
+=>  The idea is to use Inorder traversal of a binary search tree generates output, sorted in 
+    ascending order. So generate inorder traversal of the given binary tree and check if the 
+    values are sorted or not
+Follow the below steps to solve the problem:
+    - Do In-Order Traversal of the given tree and store the result in a temp array. 
+    - Check if the temp array is sorted in ascending order, if it is, then the tree is BST.
+Time Complexity: O(N), Where N is the number of nodes in the tree
+Auxiliary Space: O(H), Here H is the height of the tree and the extra space is used due to the function call stack. 
+*/
+class Solution
+{
+    public:
+bool isBSTUtil(Node* root, Node*& prev)
+{
+    // traverse the tree in inorder fashion and
+    // keep track of prev node
+    if (root) {
+        if (!isBSTUtil(root->left, prev))
+            return false;
+ 
+        // Allows only distinct valued nodes
+        if (prev != NULL && root->data <= prev->data)
+            return false;
+ 
+        prev = root;
+ 
+        return isBSTUtil(root->right, prev);
+    }
+ 
+    return true;
+}
+ 
+bool isBST(Node* root)
+{
+    Node* prev = NULL;
+    return isBSTUtil(root, prev);
+}
 };
