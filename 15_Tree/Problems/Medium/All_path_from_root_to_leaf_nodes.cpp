@@ -18,8 +18,8 @@ void solve(TreeNode* root,vector<vector<int>>&res,vector<int> ans){
         res.push_back(ans);
         return;
     }
-    solve(root->left,targetSum-root->val,res,ans);
-    solve(root->right,targetSum-root->val,res,ans);
+    solve(root->left,res,ans);
+    solve(root->right,res,ans);
 }
 public:
     vector<vector<int>> pathSum(TreeNode* root) {
