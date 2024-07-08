@@ -28,7 +28,23 @@ Left sum = 0 (no elements to the left of index 0)
 Right sum = nums[1] + nums[2] = 1 + -1 = 0
 */
 // Most Optimized Approach
-// Time Complexity O(n^2);
+// Time Complexity O(n);
+// Space Complexirty O(1);
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        int pre = 0 , suff = 0;
+        for(int i :nums){  pre+=i; }
+        for(int i = 0 ;i<nums.size();i++){
+             pre -=nums[i];
+             if(pre==suff) return i;
+            suff +=nums[i];
+        }
+        return -1;
+    }
+};
+// Most Optimized Approach
+// Time Complexity O(n);
 // Space Complexirty O(1);
 class Solution {
 public:
