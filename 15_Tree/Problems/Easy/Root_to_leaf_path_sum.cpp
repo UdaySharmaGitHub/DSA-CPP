@@ -49,6 +49,30 @@ struct Node
 
 /*you are required to
 complete this function */
+class Solution {
+ public:
+  bool hasPathSum(TreeNode* root, int sum) {
+    if (root == nullptr)
+      return false;
+    if (root->val == sum && root->left == nullptr && root->right == nullptr)
+      return true;
+    return hasPathSum(root->left, sum - root->val) ||
+           hasPathSum(root->right, sum - root->val);
+  }
+};
+
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if(root==nullptr)return 0;
+        if(!root->right && !root->left) return root->val==targetSum;
+
+      bool left =  hasPathSum(root->left,targetSum-root->val);
+      bool right =   hasPathSum(root->right,targetSum-root->val);
+
+    return left || right;
+    }
+};
 class Solution
 {
     public:
