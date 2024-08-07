@@ -1,8 +1,6 @@
 /*
 Given a Binary Search Tree. The task is to find the minimum valued element in this given BST.
-
 Example 1:
-
 Input:
            5
          /    \
@@ -13,7 +11,6 @@ Input:
     1
 Output: 1
 Example 2:
-
 Input:
              9
               \
@@ -23,14 +20,31 @@ Input:
 Output: 9
 Your Task:
 The task is to complete the function minValue() which takes root as the argument and returns the minimum element of BST. If the tree is empty, there is no minimum element, so return -1 in that case.
-
 Expected Time Complexity: O(Height of the BST)
 Expected Auxiliary Space: O(1).
-
 Constraints:
 0 <= N <= 104
 */
 //{ Driver Code Starts
+/*
+    Using Iterative
+ Time Complexity O(n)
+ Space Complexity O(1)
+*/
+class Solution {
+  public:
+    int minValue(Node* root) {
+        // Code here
+        if(!root) return -1;
+        while(root->left) root = root->left;
+        return root->data;
+    }
+};
+/*
+    Using Recursion
+ Time Complexity O(n)
+ Space Complexity O(n)
+*/
 int minValue(Node* root) {
     // Code here
     if(root==NULL){
