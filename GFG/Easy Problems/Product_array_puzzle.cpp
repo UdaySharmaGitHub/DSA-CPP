@@ -29,12 +29,35 @@ Constraints:
 0 <= numsi <= 200
 Array may contain duplicates.
 */
+class Solution {
+  public:
+    // nums: given vector
+    // return the Product vector P that hold product except self at each index
+    vector<long long int> productExceptSelf(vector<long long int>& nums) {
+
+        // code here
+        long long int p = 1 , pwz = 1 , count =0;
+        for(long long int i:nums){
+            if(i) pwz*=i;
+            if(!i) count++;
+            p*=i;
+        }
+        if(count>1){
+            for(long long int i = 0 ;i<nums.size();i++) nums[i] = 0;
+            return nums;
+        }
+        for(int i = 0  ;i<nums.size();i++){
+            if(nums[i]==0) nums[i] =pwz;
+            else nums[i] = p/nums[i];
+        }
+        return nums;
+    }
+};
 class Solution{
   public:
     // nums: given vector
     // return the Product vector P that hold product except self at each index
     vector<long long int> productExceptSelf(vector<long long int>& nums, int n) {
-       
         //code here        
         long long int withz = 1 , woz = 1;
         int count = 0;
@@ -45,7 +68,6 @@ class Solution{
             if(!nums[i]){count++;};
               withz *= nums[i];
         }
-        
         for(int i=0;i<nums.size();i++){
             if(count<2){
                 if(nums[i]){    nums[i] = withz/nums[i];    }
