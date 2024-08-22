@@ -32,19 +32,6 @@ class Solution{
 public:	
 	vector<int> kLargest(int arr[], int n, int k) {
 	    // code here
-	    sort(arr,arr+n);
-	    vector<int> ans;
-	    int j = n-1;
-	    while(k--){
-	        ans.push_back(arr[j--]);
-	    }
-	    return ans;
-	}
-};
-class Solution{
-public:	
-	vector<int> kLargest(int arr[], int n, int k) {
-	    // code here
 	    vector<int> ans;
     	sort(arr, arr + n, greater<int>());
     // Print the first kth largest elements
@@ -54,4 +41,31 @@ public:
 	return ans;
 }
 
+};
+//----------------------------------------------------------------------------------//
+//User function template for C++
+class Solution{
+public:	
+	vector<int> kLargest(int arr[], int n, int k) {
+	    // code here
+	    vector<int> ans;
+	    sort(arr,arr+n);
+	    k = n - k;
+	    for(int i = n-1;i>=k;i--) ans.push_back(arr[i]);
+	    return ans;
+	}
+};
+//----------------------------------------------------------------------------------//
+class Solution{
+public:	
+	vector<int> kLargest(int arr[], int n, int k) {
+	    // code here
+	    sort(arr,arr+n);
+	    vector<int> ans;
+	    int j = n-1;
+	    while(k--){
+	        ans.push_back(arr[j--]);
+	    }
+	    return ans;
+	}
 };
