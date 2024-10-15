@@ -58,6 +58,36 @@ class Solution {
   public:
     // Function to return a list of integers denoting the node
     // values of both the BST in a sorted order.
+    vector<int> inorder(Node* root){
+        vector<int> ans ;
+        if(!root) return ans;
+        vector<int>left = inorder(root->left);
+        ans.insert(ans.end(),left.begin(),left.end());
+        ans.push_back(root->data);
+        vector<int>right = inorder(root->right);
+        ans.insert(ans.end(),right.begin(),right.end());
+        return ans;
+    }
+    vector<int> merge(Node *root1, Node *root2) {
+        // Your code here
+        vector<int> arr1 = inorder(root1) , arr2 = inorder(root2);
+        vector<int> ans;
+        int i = 0 , j =  0 ;
+        while(i<arr1.size() && j<arr2.size()){
+            if(arr1[i] < arr2[j]) ans.push_back(arr1[i++]);
+            else if(arr1[i] > arr2[j]) ans.push_back(arr2[j++]);
+            else if(arr1[i] == arr2[j]){ ans.push_back(arr1[i++]); ans.push_back(arr2[j++]);}
+        }
+        while(i<arr1.size()) ans.push_back(arr1[i++]);
+        while(j<arr2.size()) ans.push_back(arr2[j++]);
+        return ans;
+    }
+};
+//-----------------------------------------------------------------------------------------------------------------------------------//
+class Solution {
+  public:
+    // Function to return a list of integers denoting the node
+    // values of both the BST in a sorted order.
     vector<int> arr1,arr2;
     void inorder(Node *root,bool flag){
         if(!root){
