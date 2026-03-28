@@ -269,12 +269,23 @@ Node * RecursiveApp2(Node* &head){
     return head;
 }
 //----------- Using Stack ----------------//
-// void ReverseUsingStack(Node* &head){
-
-// }
-
-
-
+void ReverseUsingStack(Node* &head){
+     if(!head || !head->next) return head;
+        stack<Node*> st;
+        while(head){ st.push(head ); head = head->next;}
+        Node* newHead =st.top();
+        newHead ->next = nullptr;
+        Node* temp = newHead;
+        st.pop();
+        while(!st.empty()){
+            Node* node = st.top();
+            node->next = nullptr;
+            temp ->next = node;
+            temp  = node;
+            st.pop();
+        }
+        return newHead;
+}
 
 //------------Find Length of a Singly Linked List / no of Node---------------------//
 //----------------Iterative Approach-------------------------------//
