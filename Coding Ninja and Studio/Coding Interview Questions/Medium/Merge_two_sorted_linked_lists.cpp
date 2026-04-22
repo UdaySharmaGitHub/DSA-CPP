@@ -1,120 +1,83 @@
-#include <bits/stdc++.h>
-
-/************************************************************
-
-    Following is the linked list node structure.
-    
-    template <typename T>
-    class Node {
-        public:
-        T data;
-        Node* next;
-
-        Node(T data) {
-            next = NULL;
-            this->data = data;
-        }
-
-        ~Node() {
-            if (next != NULL) {
-                delete next;
-            }
-        }
-    };
-
-************************************************************/
 /*
-Sample Input 1:
-7 8 -1
-1 3 4 6 -1
-Sample Output 1:
-1 3 4 6 7 8 -1
-Explanation of Input 1:
-In this testcase, the first list is: 7 -> 8 -> NULL
-The second list is: 1 -> 3 -> 4 -> 6 -> NULL
-The final list would be: 1 -> 3 -> 4 -> 6 -> 7 -> 8 -> NULL
-Sample Input 2:
-5 -1
-1 3 6 10 -1
-Sample Output 2
-1 3 5 6 10 -1
+Merge two sorted linked lists
+Given two sorted linked lists consisting of N and M nodes respectively. The task is to merge both of the list (in-place) and return head of the merged list.
+Example 1:
+Input:
+N = 4, M = 3 
+valueN[] = {5,10,15,40}
+valueM[] = {2,3,20}
+Output: 2 3 5 10 15 20 40
+Explanation: After merging the two linked
+lists, we have merged list as 2, 3, 5,
+10, 15, 20, 40.
+Example 2:
+Input:
+N = 2, M = 2
+valueN[] = {1,1}
+valueM[] = {2,4}
+Output:1 1 2 4
+Explanation: After merging the given two
+linked list , we have 1, 1, 2, 4 as
+output.
+Your Task:
+The task is to complete the function sortedMerge() which takes references to the heads of two linked lists as the arguments and returns the head of merged linked list.
+Expected Time Complexity : O(n+m)
+Expected Auxilliary Space : O(1)
+Constraints:
+1 <= N, M <= 104
+0 <= Node's data <= 105
+*/
+/* Link list Node
+struct Node {
+  int data;
+  struct Node *next;
+  
+  Node(int x) {
+    data = x;
+    next = NULL;
+  }
+};
 */
 //Function to merge two sorted linked list.
 // Most Optimized Approach
 // Time Complexity O(n)
 // Space Complexity O(1)
-Node* sortedMerge(Node* head1, Node* head2)  
-{  
-    // code here
-    if(head1==nullptr && head2==nullptr){
-        return nullptr;
+/*
+class Node {
+ public:
+    int data;
+    Node *next;
+
+    Node(int x) {
+        data = x;
+        next = NULL;
     }
-    if(head1==nullptr){
-        return head2;
-    }
-    if(head2==nullptr){
-        return head1;
-    }
-    Node* ans = new Node(-1);
-    Node* temp = ans;
-    while(head1!=nullptr && head2!=nullptr){
-        if(head2->data > head1->data){
-            temp->next = head1;
-            temp = head1;
-            head1=head1->next;
+};
+*/
+
+class Solution {
+  public:
+    Node* sortedMerge(Node* head1, Node* head2) {
+        // code here
+        if(!head1 && !head2) return nullptr;
+        if(!head1) return head2;
+        if(!head2) return head1;
+        Node* res = new Node(-1);
+        Node* temp = res;
+        while(head2  && head1){
+            if(head1 ->data >head2->data){
+                temp->next = head2;
+                temp = head2;
+                head2 = head2->next;
+            }
+            else{
+                temp->next = head1;
+                temp = head1;
+                head1 =head1->next;
+            }
         }
-        else{
-             temp->next = head2;
-            temp = head2;
-            head2=head2->next;
-        }
+        if(!head1) temp->next =head2;
+        else temp->next = head1;
+        return res->next;
     }
-         if(head1!=nullptr){
-          temp->next = head1;
-        }
-        else{
-            temp->next= head2;
-        }
-    ans = ans->next;
-    return ans;
-}  
-// Next Optimized Approach
-void insertAtTail(Node<int>* &tail,int x){
-    Node<int>* node = new Node(x);
-    tail->next=node;
-    tail=node;
-}
-Node<int>* sortTwoLists(Node<int>* first, Node<int>* second)
-{
-    // Write your code here.
-    if(first==nullptr && second==nullptr){
-        return nullptr;
-    }
-    if(first==nullptr){
-        return second;
-    }
-    if(second==nullptr){
-        return first;
-    }
-    Node<int>* ans = new Node(-1);
-    Node<int>* temp = ans;
-    while(first!=nullptr && second!=nullptr){
-        int x = first->data , y = second->data;
-        if(x>y){
-            insertAtTail(temp,y);
-            second=second->next;
-        }
-        else{
-            insertAtTail(temp,x);
-            first=first->next;
-        }
-    }
-    if(first!=nullptr){
-        temp->next = first;
-    }
-    else{
-        temp->next=second;
-    }
-    ans = ans->next;
-    return ans;
-}
+}; 
