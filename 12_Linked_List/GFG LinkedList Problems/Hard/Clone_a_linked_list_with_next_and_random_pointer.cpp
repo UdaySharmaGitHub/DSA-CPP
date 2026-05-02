@@ -35,6 +35,15 @@ struct Node {
         random = NULL;
     }
 };*/
+/*
+    APPROACH -1 :
+    Step-1 Attach clone nodes in between the nodes
+    Step-2 Attach the random pointers
+    Step-3 Attach the next pointers
+
+    Time Complexity: O(N) + O(N) + O(N)  ~ O(3N) => O(N)
+    Space Complexity: O(1)
+*/
 class Solution {
   public:
     Node *copyList(Node *head) {
@@ -68,5 +77,67 @@ class Solution {
         }
         
         return clone->next;
+    }
+};
+
+/*
+    APPROACH -2 :
+    Step-1 Create A Clone Node
+    Step-2 Connecting the CLone Node to its next Pointer
+    Step-3 Create A MAP
+    Step-4 Adding the Random Pointers
+
+    Time Complexity: O(N) + O(N) + O(N)  ~ O(3N) => O(N)
+    Space Complexity: O(N) for the MAP
+*/
+
+class Solution {
+  public:
+  void insertAtTail(Node*&head,Node*&tail,int data){
+      Node* node = new Node(data);
+      if(!head && !tail){
+          head  = node, tail = node;
+          return ;
+      }
+      tail->next = node;
+      tail = node;
+  }
+    Node* cloneLinkedList(Node* head) {
+        // code here
+        
+        
+        // Step-1 Create A Clone Node
+        Node* cloneHead = nullptr, *cloneTail = nullptr;
+        
+        Node* temp = head;
+        
+        // Step-2 Connecting the CLone Node to its next Pointer 
+        // O(N) for creating the clone linked list
+        while(temp){
+            insertAtTail(cloneHead,cloneTail,temp->data);
+            temp = temp->next;
+        }
+        
+        
+        // Step-3 Create A MAP. 
+        // O(N) for creating the MAP
+        unordered_map<Node* ,Node*>originalToCopy;
+        Node* originalNode = head;
+        Node* copyNode =cloneHead;
+        while(copyNode && originalNode){
+            originalToCopy[originalNode] = copyNode;
+            originalNode = originalNode->next;
+            copyNode=copyNode->next;
+        }
+        
+        // Step-4 Adding the Random Pointers
+        // O(N) for adding the random pointers
+        originalNode = head; copyNode =cloneHead;
+        while(copyNode && originalNode){
+            copyNode->random = originalToCopy[originalNode->random];
+            originalNode = originalNode->next;
+            copyNode=copyNode->next;
+        }
+        return cloneHead;
     }
 };

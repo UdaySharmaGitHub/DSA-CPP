@@ -36,78 +36,65 @@ Expected Auxiliary Space: O(max(n,m)) for the resultant list.
 Constraints:
 1 <= n, m <= 104
 */
-/* node for linked list:
 
-struct Node {
+/*
+class Node {
+  public:
     int data;
-    struct Node* next;
+    Node* next;
     Node(int x) {
         data = x;
         next = NULL;
     }
 };
-
 */
 
-class Solution
-{
-    private:
-    struct Node* reverse(struct Node* head){
-        if(!head) return head;
-        Node* prev = nullptr , *curr = head , *nxt = nullptr;
-        while(curr){
-            nxt = curr->next;
-            curr->next=prev;
-            prev= curr;
-            curr= nxt;
-        }
-        return prev;
-    }
-    void insertAtEnd(struct Node*&head,struct Node*&tail,int data){
-                Node* node = new Node(data);
-        if(!head){
-            head = node;
-            tail = node;
-            return ;
-        }
-        tail->next = node;
-        tail=node;
-    }
-    public:
-    //Function to add two numbers represented by linked list.
-    struct Node* addTwoLists(struct Node* num1, struct Node* num2)
-    {
+class Solution {
+  public:
+  Node* reverse(Node* head){
+      Node* curr = head , *nxt = nullptr ,*prev = nullptr;
+      while(curr){
+          nxt = curr->next;
+          curr ->next = prev;
+          prev = curr;
+          curr =nxt;
+      }
+      return prev;
+  }
+  void insertAtEnd(Node*&newHead,Node*&newTail,int digit){
+      Node* node = new Node(digit);
+            if(!newHead && !newTail){
+                newHead = node; newTail = node;
+                return;
+            }
+                newTail->next =node;
+                newTail = node;
+  }
+    Node* addTwoLists(Node* head1, Node* head2) {
         // code here
-        int carry = 0 ;
-        while(num1->data==0 && num1->next){
-            num1 = num1->next;
-        }
-        while(num2->data==0 && num2->next){
-            num2 = num2->next;
-        }
-        // if(!num1)return num2;
-        // if(!num2)return num1;
-        // if(!num1 && !num2)return new Node(0);
-        num1 = reverse(num1);
-        num2 = reverse(num2);
-        Node* ansHead = nullptr;
-        Node* ansTail = nullptr;
-        while(num1 || num2 || carry){
-            int n1 = 0 , n2  = 0 ;
-            
-            if(num1) n1 = num1->data;
-            if(num2) n2 = num2->data;
-            
-            int sum = n1 +n2+carry;
+        while(head1->data==0 && head1->next) head1=head1->next;
+        while(head2->data==0 && head2->next) head2=head2->next;
+        
+        head1 = reverse(head1);
+        head2 = reverse(head2);
+        
+        Node* newHead = nullptr;
+        Node* newTail = newHead;
+        
+        int carry = 0;
+        
+        while(head1 || head2 || carry){
+            int a = (head1!=nullptr)?head1->data:0 ,  b = (head2!=nullptr)?head2->data:0;
+            int sum =a+b +carry;
+            carry =sum/10;
             int digit = sum%10;
-            insertAtEnd(ansHead,ansTail,digit);
             
-            carry = sum/10;
+            insertAtEnd(newHead,newTail,digit);
             
-          if(num1)  num1 = num1->next;
-          if(num2)  num2=num2->next;
+            if(head1)head1 = head1->next;
+            if(head2)head2 = head2->next;
         }
-        ansHead = reverse(ansHead);
-        return ansHead;
+        newHead= reverse(newHead);
+        return newHead;
     }
 };
