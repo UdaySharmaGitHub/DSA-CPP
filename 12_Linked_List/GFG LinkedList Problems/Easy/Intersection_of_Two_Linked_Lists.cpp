@@ -24,10 +24,42 @@ Constraints:
 Expected time complexity: O(m+n)
 Expected auxiliary space: O(m+n)
 */
+
 /*
-    MOST OPTIMIZED APPRAOCH
-Time Complexity O(n)
-Space Complexity O(n)
+    APPROACH: TWO POINTERS
+    steps:
+    1. Initialize two pointers, ptr1 and ptr2, to the heads of the two linked lists.
+    2. Traverse both linked lists simultaneously until ptr1 and ptr2 point to the same node or both pointers reach the end of their respective lists.
+    3. If ptr1 and ptr2 point to the same node, return that node as the intersection point. If both pointers reach the end of their respective lists without finding an intersection, return null.
+
+    Time Complexity O(n+m)
+    Space Complexity O(1)
+*/
+class Solution {
+  public:
+    Node* intersectPoint(Node* head1, Node* head2) {
+        //  Code Here
+        Node* ptr1 = head1 , *ptr2 =head2;
+        while(ptr1!=ptr2){
+            ptr2 = ptr2?ptr2:head2;
+            ptr1 = ptr1?ptr1:head1;
+            
+            ptr1= ptr1->next;
+            ptr2 = ptr2->next;
+        }
+        return ptr1;
+    }
+};
+
+/*
+    APPROACH: HASHING
+    steps:
+    1. Traverse the second linked list and store the count of each node value in a hash map.
+    2. Traverse the first linked list and check if the node value is present in the hash map. If it is present, add it to the intersection linked list and decrement the count in the hash map.
+    3. Finally, return the head of the intersection linked list.    
+
+    Time Complexity O(n)
+    Space Complexity O(n)
 */
 
 class Solution{
@@ -54,5 +86,32 @@ class Solution{
         head1 = node->next;
         return head1;
         
+    }
+};
+
+
+/*
+    Brute Force Approach: Nested Loop
+    steps:
+    1. Traverse the first linked list and for each node, traverse the second linked list to check if the node value is present in the second linked list. 
+    If it is present, add it to the intersection linked list.
+    2. Finally, return the head of the intersection linked list.
+
+    Time Complexity O(n*m)
+    Space Complexity O(1)
+*/
+class Solution {
+  public:
+    Node* intersectPoint(Node* head1, Node* head2) {
+        //  Code Here
+    while(head1){
+        Node* temp = head2;
+        while(temp){
+            if(temp == head1) return temp;
+            temp =temp->next;
+        }
+        head1 = head1->next;
+    }
+    return nullptr;
     }
 };

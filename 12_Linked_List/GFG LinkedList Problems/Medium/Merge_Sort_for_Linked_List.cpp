@@ -1,180 +1,92 @@
 /*
-Merge Sort for Linked List
-Given Pointer/Reference to the head of the linked list, the task is to Sort the given linked list using Merge Sort.
-Note: If the length of linked list is odd, then the extra node should go in the first list while splitting.
-
-Example 1:
-
+You are given the head of a linked list. You have to sort the given linked list using Merge Sort.
+Examples:
 Input:
-N = 5
-value[]  = {3,5,2,4,1}
-Output: 1 2 3 4 5
-Explanation: After sorting the given
-linked list, the resultant matrix
-will be 1->2->3->4->5.
-Example 2:
-
+Output: 10 -> 20 -> 30 -> 40 -> 50 -> 60
+Explanation: After sorting the given linked list, the resultant list will be:
 Input:
-N = 3
-value[]  = {9,15,0}
-Output: 0 9 15
-Explanation: After sorting the given
-linked list , resultant will be
-0->9->15.
-Your Task:
-For C++ and Python: The task is to complete the function mergeSort() which sort the linked list using merge sort function.
-For Java: The task is to complete the function mergeSort() and return the node which can be used to print the sorted linked list.
 
-Expected Time Complexity: O(N*Log(N))
-Expected Auxiliary Space: O(N)
-
+Output: 2 -> 5 -> 8 -> 9
+Explanation: After sorting the given linked list, the resultant list will be:
 Constraints:
-1 <= N <= 105
+1 ≤ number of nodes ≤ 105
+0 ≤ node->data ≤ 106
 */
-//{ Driver Code Starts
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <bits/stdc++.h>
-using namespace std;
-
-struct Node {
+/*
+class Node {
+public:
     int data;
-    struct Node* next;
-    Node(int x) {
+    Node* next;
+
+    Node(int x){
         data = x;
         next = NULL;
     }
 };
-
-
-// } Driver Code Ends
-/* Structure of the linked list node is as
-struct Node 
-{
-    int data;
-    struct Node* next;
-    Node(int x) { data = x;  next = NULL; }
-};
 */
+/*
+    APROACH:
+    1. Base case: If the list is empty or has only one node, it's already sorted, so we return the head.
+    2. Split the linked list into two halves using the fast and slow pointer technique. The slow pointer will point to the middle node.
+    3. Recursively call mergeSort on both halves of the linked list.
+    4. Merge the two sorted halves using a helper function that merges two sorted linked lists.
+    5. Return the head of the merged linked list, which will be the sorted linked list.
 
+    TIME COMPLEXITY: O(n log n) - due to the divide and conquer approach of merge sort.
+    SPACE COMPLEXITY: O(log n) - we are merging in place without using extra space for the nodes, 
+                            but the recursive stack space will be O(log n) in the average case
+*/
+class Solution {
+public:
 
-class Solution{
-    private:
-    Node* findMid(Node* head) {
-    Node* slow = head;
-    Node* fast = head -> next;
-    
-    while(fast != NULL && fast -> next != NULL) {
-        slow = slow -> next;
-        fast = fast -> next -> next; 
-    }
-    return slow;
-}
+    Node* findMiddle(Node* head){
+        Node* slow = head;
+        Node* fast = head->next;
 
-Node* merge(Node* left, Node* right) {
-    
-    if(left == NULL)
-        return right;
-    
-    if(right == NULL)
-        return left;
-    
-    Node* ans = new Node(-1);
-    Node* temp = ans;
-    
-    //merge 2 sorted Linked List
-    while(left != NULL && right != NULL) {
-        if(left -> data < right -> data ) {
-            temp -> next = left;
-            temp = left;
-            left = left -> next;
+        while(fast && fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        else
-        {
-            temp -> next = right;
-            temp = right;
-            right = right -> next;
+        return slow;
+    }
+
+    Node* merge(Node* left, Node* right){
+        Node dummy(0);
+        Node* tail = &dummy;
+
+        while(left && right){
+            if(left->data < right->data){
+                tail->next = left;
+                left = left->next;
+            } else {
+                tail->next = right;
+                right = right->next;
+            }
+            tail = tail->next;
         }
+
+        if(left) tail->next = left;
+        if(right) tail->next = right;
+
+        return dummy.next;
     }
-    
-    while(left != NULL) {
-        temp -> next = left;
-        temp = left;
-        left = left -> next;
-    }
-    
-    while(right != NULL) {
-        temp -> next = right;
-        temp = right;
-        right = right -> next;
-    }
-    
-    ans = ans -> next;
-    return ans;
-    
-}
-  public:
-    //Function to sort the given linked list using Merge Sort.
+
     Node* mergeSort(Node* head) {
-        // your code here
-            //base case
-    if( head == NULL || head -> next == NULL ) {
-        return head;
-    }
-    
-    // break linked list into 2 halvs, after finding mid
-    Node* mid = findMid(head);
-    
-    Node* left = head;
-    Node* right = mid->next;
-    mid -> next = NULL;
-    
-    //recursive calls to sort both halves
-    left = mergeSort(left);
-    right = mergeSort(right);
-    
-    //merge both left and right halves
-    Node* result = merge(left, right);
-    
-    return result;
+        // Base case
+        if(!head || !head->next) return head;
 
+        // Split
+        Node* middle = findMiddle(head);
+        Node* head2 = middle->next;
+        middle->next = NULL;
+
+        Node* head1 = head;
+
+        // Recursion
+        head1 = mergeSort(head1);
+        head2 = mergeSort(head2);
+
+        // Merge
+        return merge(head1, head2);
     }
 };
-
-
-//{ Driver Code Starts.
-
-void printList(Node* node) {
-    while (node != NULL) {
-        printf("%d ", node->data);
-        node = node->next;
-    }
-    printf("\n");
-}
-
-void push(struct Node** head_ref, int new_data) {
-    Node* new_node = new Node(new_data);
-
-    new_node->next = (*head_ref);
-    (*head_ref) = new_node;
-}
-
-int main() {
-    long test;
-    cin >> test;
-    while (test--) {
-        struct Node* a = NULL;
-        long n, tmp;
-        cin >> n;
-        for (int i = 0; i < n; i++) {
-            cin >> tmp;
-            push(&a, tmp);
-        }
-        Solution obj;
-        a = obj.mergeSort(a);
-        printList(a);
-    }
-    return 0;
-}
-// } Driver Code Ends
