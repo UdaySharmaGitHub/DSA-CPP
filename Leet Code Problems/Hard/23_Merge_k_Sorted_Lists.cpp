@@ -37,6 +37,9 @@ The sum of lists[i].length will not exceed 104.
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+ /*
+ 
+ */
 class Solution {
 private:
 ListNode* merge(ListNode* l1 , ListNode* l2){
@@ -68,5 +71,38 @@ public:
             head = merge(head,lists[i]);
            }
            return head;
+    }
+};
+
+/*
+
+    Approach: Brute Force
+    Steps:
+    1. Traverse through all the linked lists and store the values in a vector.
+    2. Sort the vector.
+    3. Create a new linked list and add the sorted values to it.
+    4. Return the head of the new linked list.
+*/
+
+class Solution {
+  public:
+    Node* mergeKLists(vector<Node*>& arr) {
+        // code here
+        vector<int> res;
+        for(Node* node:arr){
+            while(node){
+                res.push_back(node->data);
+                node = node->next;
+            }
+        }
+        sort(res.begin(),res.end());
+        Node* newHead = new Node(-1);
+        Node* newTail = newHead;
+        for(int i:res){
+            Node* node = new Node(i);
+            newTail ->next = node;
+            newTail = node;
+        }
+        return newHead->next;
     }
 };
