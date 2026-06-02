@@ -1,101 +1,138 @@
 /*
-Flatten A Linked List
-Problem statement
-You are given a linked list containing 'n' 'head' nodes, where every node in the 
-linked list contains two pointers:
-(1) ‘next’ which points to the next node in the list
-(2) ‘child’ pointer to a linked list where the current node is the head.
-Each of these child linked lists is in sorted order and connected by 'child' pointer.
-Your task is to flatten this linked such that all nodes appear in a single 
-layer or level in a 'sorted order'.
-Example:
-Input: Given linked list is:
-Output:
-1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 12 → 20 → null.
+Flattening a Linked List
+Given a Linked List of size N, where every node represents a sub-linked-list and 
+contains two pointers:
+(i) a next pointer to the next node,
+(ii) a bottom pointer to a linked list where this node is head.
+Each of the sub-linked-list is in sorted order.
+Flatten the Link List such that all the nodes appear in a single level while maintaining 
+the sorted order. 
+Note: The flattened list will be printed using the bottom pointer instead of next pointer.
+Example 1:
+Input:
+5 -> 10 -> 19 -> 28
+|     |     |     | 
+7     20    22   35
+|           |     | 
+8          50    40
+|                 | 
+30               45
+Output:  5-> 7-> 8- > 10 -> 19-> 20->
+22-> 28-> 30-> 35-> 40-> 45-> 50.
 Explanation:
-The returned linked list should be in a sorted order. All the elements in this returned 
-linked list are connected by 'child' pointers and 'next' pointers point to null.
-Detailed explanation ( Input/output format, Notes, Images )
-Sample Input 1 :
-4
-3
-1 2 3
-3
-8 10 15
-2
-18 22
-1
-29
-Sample Output 1 :
-1 2 3 8 10 15 18 22 29
-Explanation For Sample Input 1:
-The given linked list is 
-Therefore after flattening the list will become-
-1 -> 2 -> 3 -> 8 -> 10 -> 15 -> 18 -> 22 -> 29 ->null
-Sample Input 2 :
-5
-2
-4 6
-2
-5 71
-3
-7 8 9
-3 
-11 12 19
-3
-14 15 17
-Sample Output 2 :
-4 5 6 7 8 9 11 12 14 15 17 19 71
-Expected Time Complexity:
-Try solving this in O(n*n*k), where ‘n’ denotes the number of head nodes and ‘k’ is the average 
-number of child nodes in all 'n' sub-lists.     
-Expected Space Complexity:
-Try solving this without using any extra space.   
+The resultant linked lists has every 
+node in a single level.
+(Note: | represents the bottom pointer.)
+Example 2:
+Input:
+5 -> 10 -> 19 -> 28
+|          |                
+7          22   
+|          |                 
+8          50 
+|                           
+30              
+Output: 5->7->8->10->19->22->28->30->50
+Explanation:
+The resultant linked lists has every
+node in a single level.
+(Note: | represents the bottom pointer.)
+Your Task:
+You do not need to read input or print anything. Complete the function flatten() 
+that takes the head of the linked list as input parameter and returns the head of 
+flattened link list.
+Expected Time Complexity: O(N*M)
+Expected Auxiliary Space: O(1)
 Constraints:
-1 <= n <= 100
-1 <= k <= 20
-1 <= Node.data <= 10^9
-Time Limit: 1 sec
+0 <= N <= 50
+1 <= Mi <= 20
+1 <= Element of linked list <= 103
 */
 /*
- * Definition for linked list.
- * class Node {
- *  public:
- *		int data;
- *		Node *next;
- * 		Node *child;
- *		Node() : data(0), next(nullptr), child(nullptr){};
- *		Node(int x) : data(x), next(nullptr), child(nullptr) {}
- *		Node(int x, Node *next, Node *child) : data(x), next(next), child(child) {}
- * };
- */
- // Most Optimized Approah
-// n = no of node in vertical LL , m = no of node in Horizontal LL
-// Time Complexity O(n*m) 
-// Space Complexity o(n) => for recursion
-Node * merge(Node* l1 , Node* l2){
+struct Node{
+	int data;
+	struct Node * next;
+	struct Node * bottom;
+	Node(int x){
+	    data = x;
+	    next = NULL;
+	    bottom = NULL;
+	}	
+};
+*/
+/*
+    Most Optimized Approah
+    n = no of node in vertical LL , m = no of node in Horizontal LL
+    Time Complexity O(n*m) 
+    Space Complexity O(n) => for recursion
+*/
+class Solution {
+private:
+    Node * merge(Node* l1 , Node* l2){
 	Node* dummyNode = new Node(-1);
 	Node* res = dummyNode;
 	while(l1!=nullptr && l2!=nullptr){
 		if(l1->data > l2->data){
-			res->child=l2;
+			res->bottom=l2;
 			res=l2;
-			l2=l2->child;
+			l2=l2->bottom;
 		}
 		else{
-			res->child=l1;
+			res->bottom=l1;
 			res=l1;
-			l1=l1->child;
+			l1=l1->bottom;
 		}
 		res->next=nullptr;
 		}
-		if(l1){res->child=l1;}
-		else{res->child=l2;}
-		return dummyNode->child;
+		if(l1){res->bottom=l1;}
+		else{res->bottom=l2;}
+		return dummyNode->bottom;
 	}
-Node* flattenLinkedList(Node* head){ 
-if(head==nullptr || head->next==nullptr){return head;}
-Node* mergeHead = flattenLinkedList(head->next);
-	return merge(head,mergeHead);
-	// Write your code here
-}
+public:
+    Node *flatten(Node *root)
+    {
+        // Your code here
+        if(root==nullptr || root->next==nullptr){return root;}
+            Node* mergeHead = flatten(root->next);
+	        return merge(root,mergeHead);      
+    }
+};
+//{ Driver Code Starts.
+
+
+/*
+	APPROACH: Using Sorting and Merging
+	Steps
+	1. Traverse the linked list and store all the elements in a vector.
+	2. Sort the vector.
+	3. Create a new linked list using the sorted vector and return the head of the new linked list.
+	
+	Time Complexity: O(n*m log(n*m)) where n is the number of nodes in the vertical linked list and m is the number of nodes in the horizontal linked list.
+	Space Complexity: O(n*m) where n is the number of nodes in the vertical linked list and m is the number of nodes in the horizontal linked list.
+*/
+
+class Solution {
+  public:
+    Node *flatten(Node *root) {
+        // code here
+        vector<int> res;
+        while(root){
+            Node* temp = root;
+            while(temp){
+                res.push_back(temp->data);
+                temp = temp->bottom;
+            }
+            root= root->next;
+        }
+        sort(res.begin(),res.end());
+        root = new Node(res[0]);
+        Node* temp =root;
+        for(int i =1;i<res.size();i++){
+            Node* node = new Node(res[i]);
+            temp->bottom = node;
+            temp ->next = nullptr;
+            temp = node;
+        }
+        return root;
+    }
+};

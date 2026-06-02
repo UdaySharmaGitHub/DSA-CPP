@@ -98,3 +98,41 @@ public:
     }
 };
 //{ Driver Code Starts.
+
+
+/*
+	APPROACH: Using Sorting and Merging
+	Steps
+	1. Traverse the linked list and store all the elements in a vector.
+	2. Sort the vector.
+	3. Create a new linked list using the sorted vector and return the head of the new linked list.
+	
+	Time Complexity: O(n*m log(n*m)) where n is the number of nodes in the vertical linked list and m is the number of nodes in the horizontal linked list.
+	Space Complexity: O(n*m) where n is the number of nodes in the vertical linked list and m is the number of nodes in the horizontal linked list.
+*/
+
+class Solution {
+  public:
+    Node *flatten(Node *root) {
+        // code here
+        vector<int> res;
+        while(root){
+            Node* temp = root;
+            while(temp){
+                res.push_back(temp->data);
+                temp = temp->bottom;
+            }
+            root= root->next;
+        }
+        sort(res.begin(),res.end());
+        root = new Node(res[0]);
+        Node* temp =root;
+        for(int i =1;i<res.size();i++){
+            Node* node = new Node(res[i]);
+            temp->bottom = node;
+            temp ->next = nullptr;
+            temp = node;
+        }
+        return root;
+    }
+};
